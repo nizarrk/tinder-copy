@@ -4,9 +4,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('premium_features', [
-      { name: 'Unlimited Swipes', premium_package_id: 1, description: 'Swipe as much as you want without any limits.' },
-      { name: 'Unlimited Swipes', premium_package_id: 2, description: 'Swipe as much as you want without any limits.' },
-      { name: 'Verified Label', premium_package_id: 2, description: 'Get a verified label on your profile.' },
+      { name: 'Unlimited Swipes', premium_package_id: 1 },
+      { name: 'Unlimited Swipes', premium_package_id: 2 },
+      { name: 'Verified Label', premium_package_id: 2 },
     ]);
   },
 

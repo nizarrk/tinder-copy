@@ -106,14 +106,14 @@ npm install
 4. Set up the environment variables:
 ##### Create a .env.dev file in the ./env directory of the project based on ./env/.env.example file and add the following variables:
 ```
-MYSQL_TINDER_HOST=your_database_host
-MYSQL_TINDER_PORT=your_database_port
 MYSQL_TINDER_NAME=tinder_copy
+MYSQL_TINDER_HOST=your_database_host
 MYSQL_TINDER_USER=your_database_user
 MYSQL_TINDER_PASS=your_database_password
+MYSQL_TINDER_PORT=your_database_port
 
 ```
-##### Replace your_database_host, your_database_user and your_database_password with the appropriate values for your database configuration.
+##### Replace your_database_host, your_database_user and your_database_password with the appropriate values for your database configuration and make sure your database name is "tinder_copy"
 5. Run the database migrations and seeders:
 ```
 npx sequelize-cli db:migrate

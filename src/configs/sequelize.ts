@@ -16,7 +16,7 @@ const directories: { [key: string]: string } = {
 const sequelizeConfigurations: { [key: string]: Sequelize.Options } = {
     [toCamelCaseName(process.env.MYSQL_TINDER_NAME || '')]: {
         host: process.env.MYSQL_TINDER_HOST || 'localhost',
-        dialect: 'mysql',
+        dialect: process.env.MYSQL_TINDER_DIALECT as Sequelize.Dialect || 'mysql',
         database: process.env.MYSQL_TINDER_NAME || '',
         username: process.env.MYSQL_TINDER_USER || '',
         password: process.env.MYSQL_TINDER_PASS || '',
