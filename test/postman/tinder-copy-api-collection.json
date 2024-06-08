@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "0a781ef1-3c04-4c5f-98b0-25b28780891c",
+		"name": "TINDER-COPY-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4828620"
+	},
+	"item": [
+		{
+			"name": "LOGIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login Successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"authToken\", jsonData.data.token); // Adjust according to your response structure\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.name).to.exist;\r",
+							"    pm.expect(responseData.error).to.exist;\r",
+							"    pm.expect(responseData.code).to.exist;\r",
+							"    pm.expect(responseData.status).to.exist;\r",
+							"    pm.expect(responseData.from).to.exist;\r",
+							"    pm.expect(responseData.message).to.exist;\r",
+							"    pm.expect(responseData.data).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Token in the response data is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.data.token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should be a non-empty string\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4091/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "4091",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 500\", function () {",
+							"  pm.expect(pm.response.code).to.equal(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.name).to.exist;",
+							"    pm.expect(responseData.error).to.exist;",
+							"    pm.expect(responseData.code).to.exist;",
+							"    pm.expect(responseData.status).to.exist;",
+							"    pm.expect(responseData.from).to.exist;",
+							"    pm.expect(responseData.message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Error is a boolean value\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.error).to.be.a('boolean');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"john_doe\",\r\n    \"email\": \"johnexamplecom\",\r\n    \"password\": \"password123\",\r\n    \"gender\": \"male\",\r\n    \"birthdate\": \"1990-05-15\",\r\n    \"location\": \"New York\",\r\n    \"bio\": \"Hello, I'm John Doe.\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4091/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "4091",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LIST USER SWIPE",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the response schema for required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('name');\r",
+							"    pm.expect(responseData).to.have.property('error');\r",
+							"    pm.expect(responseData).to.have.property('code');\r",
+							"    pm.expect(responseData).to.have.property('status');\r",
+							"    pm.expect(responseData).to.have.property('from');\r",
+							"    pm.expect(responseData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the data object for required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.data).to.be.an('array').that.is.not.empty;\r",
+							"\r",
+							"    responseData.data.forEach(function (item) {\r",
+							"        pm.expect(item).to.have.property('id').that.is.a('number');\r",
+							"        pm.expect(item).to.have.property('first_name').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('last_name').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('username').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('email').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('gender').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('birthdate').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('location').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('bio').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('profile_picture').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('created_at').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('updated_at').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('user_premium_packages').that.is.an('array');\r",
+							"        pm.expect(item).to.have.property('is_verified').that.is.a('boolean');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authToken}}"
+					}
+				],
+				"url": {
+					"raw": "localhost:4091/api/swipe",
+					"host": [
+						"localhost"
+					],
+					"port": "4091",
+					"path": [
+						"api",
+						"swipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SWIPE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response schema is valid and contains the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('data').that.is.an('object');\r",
+							"    \r",
+							"    const requiredFields = ['id', 'swiper_id', 'swiped_user_id', 'action', 'created_at'];\r",
+							"    requiredFields.forEach(function(field) {\r",
+							"        pm.expect(responseData.data).to.have.property(field);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"swiped_user_id\": 42,\r\n    \"action\": \"like\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4091/api/swipe",
+					"host": [
+						"localhost"
+					],
+					"port": "4091",
+					"path": [
+						"api",
+						"swipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PURCHASE PREMIUM",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the response schema for required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data).to.be.an('object');\r",
+							"    \r",
+							"    const requiredFields = ['id', 'user_id', 'premium_package_id', 'start_date', 'end_date', 'created_at', 'updated_at'];\r",
+							"    requiredFields.forEach(function(field) {\r",
+							"        pm.expect(responseData.data).to.have.property(field);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Error is a boolean value\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.error).to.be.a('boolean');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"package_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4091/api/premium/purchase",
+					"host": [
+						"localhost"
+					],
+					"port": "4091",
+					"path": [
+						"api",
+						"premium",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

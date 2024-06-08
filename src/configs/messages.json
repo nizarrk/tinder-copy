@@ -1,0 +1,20 @@
+{
+	"OK": {
+		"name": "OK",
+		"error": false,
+		"code": "00",
+		"status": 200,
+		"from": "",
+		"message": "",
+		"data": {}
+	},
+	"ERR": {
+		"name": "ERR",
+		"error": true,
+		"code": "-01",
+		"status": 500,
+		"from": "",
+		"message": "Sample error response!",
+		"data": {}
+	}
+}
