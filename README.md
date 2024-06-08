@@ -138,6 +138,7 @@ npm start
 ##### To run the tests, you need to have newman installed globally. If you don't have it installed, you can install it using npm:
 ```
 npm install -g newman
+npm run test
 
 ```
 
